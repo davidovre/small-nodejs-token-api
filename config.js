@@ -21,7 +21,7 @@ env.production = {
 //Select the current environment configuration.
 const currentEnv = typeof(process.env.NODE_ENV) == 'string' ? process.env.NODE_ENV.toLowerCase() : '';
 
-//Check of the current env exsits
+//Check if the current env exsits
 const envToExport = typeof(env[currentEnv]) == 'object' ? env[currentEnv] : env.staging;
 
 //We do only export the environment that the server are using.
