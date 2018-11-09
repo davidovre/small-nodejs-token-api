@@ -4,9 +4,10 @@
 
 //Imports the required dependencies.
 const router = require('./routes/router');
-const handlers = require('./routes/handlers');
+const defaultHandler = require('./handlers/default');
 const url = require('url');
 const StringDecoder = require('string_decoder').StringDecoder;
+const helpers = require('./services/helper');
 
 //This UnifiedServer function handles the server logic.
 const unifiedServer = (req, res) => {
@@ -39,7 +40,7 @@ const unifiedServer = (req, res) => {
         buffer += decoder.end();
 
         // Choose the handler this request should go to
-        const chosenHandler = typeof (router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : handlers.notFound;
+        const chosenHandler = typeof (router[trimmedPath]) !== 'undefined' ? router[trimmedPath] : defaultHandler.notFound;
 
         // Construct the data object
         const data = {
@@ -47,7 +48,7 @@ const unifiedServer = (req, res) => {
             'queryStringObject': queryStringObject,
             'method': method,
             'headers': headers,
-            'payload': buffer
+            'payload': helpers.parseJsonToObject(buffer)
         }
 
         // Route the request to the handler specify in the router

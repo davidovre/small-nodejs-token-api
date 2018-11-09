@@ -7,9 +7,10 @@ const http = require('http');
 const https = require('https');
 const config = require('./config');
 const fs = require('fs');
+const language = require('./language');
 
 //Required the unifiedServer to handle the server logic.
-const unifiedServer = require('./unifiedServer');
+const unifiedServer = require('./server');
 
 //Server options for SLL/HTTPS
 const httpsServerOptions = {
@@ -24,7 +25,7 @@ const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
 
 //Start the https server
 httpsServer.listen(config.httpsPort, () => {
-    console.log(`The server is listen on port ${ config.httpsPort } and its running in following env: ${ config.envName }`);
+    console.log(language.server.portMessage, config.httpPort, language.server.envMessage, config.envName);
 })
 
 //Create the http server
@@ -34,5 +35,5 @@ const httpServer = http.createServer((req, res) => {
 
 //Starts the http server
 httpServer.listen(config.httpPort, () => {
-    console.log(`The server is listen on port ${ config.httpPort } and its running in following env: ${ config.envName }`);
+    console.log(language.server.portMessage, config.httpPort, language.server.envMessage, config.envName);
 })

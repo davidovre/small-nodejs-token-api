@@ -1,9 +1,10 @@
-//Import required dependencies.
-const handlers = require('./handlers')
+//Required handlers. 
+const userHandler   = require('../handlers/users');
+const tokenHandler  = require('../handlers/token');
 
-//Router object to hold routes
+//Router holds routes and map to correct handler
 const router = {
-    'hello' : handlers.hello
+    'users': userHandler.users,
+    'tokens': tokenHandler.tokens
 }
-
 module.exports = router;
