@@ -24,7 +24,7 @@ handlers._users.post = (data, callback) => {
     //Check if there are any missing fields and return a payload with missing fields
     if (firstName === false || lastName === false || phone === false || password === false || tosAgreement === false) {
         callback(400, [
-            { 'Error': language.errorMessages.general.fieldsMissing },
+            { 'Error': language.errormessages.general.fieldsmissing },
             {
                 'firstName':    validator.requiredInput(firstName, 'Firstname'),
                 'lastName':     validator.requiredInput(lastName, 'Lastname'),
@@ -38,13 +38,13 @@ handlers._users.post = (data, callback) => {
 
     // Making sure that the user does not exist already
     _data.read('users', phone, (error, data) => {
-        if (!error) callback(400, { 'error': language.errorMessages.user.userexist })
+        if (!error) callback(400, { 'error': language.errormessages.user.userexist })
 
         // Hasing the password using our hash password helper.
         const hasedPassword = helpers.hash(password);
 
         // Making sure the password hashing went well, if not return error message.
-        if (!hasedPassword) callback(500, { 'error': language.errorMessages.user.hashpassword });
+        if (!hasedPassword) callback(500, { 'error': language.errormessages.user.hashpassword });
 
         //Now we create the user object
         const userObject = {
@@ -57,8 +57,8 @@ handlers._users.post = (data, callback) => {
 
         // Storing/Saving the user data on disc
         _data.create('users', phone, userObject, (error) => {
-            if (error) callback(500, { 'error': language.errorMessages.user.created });
-            callback(200, { message: language.successMessages.user.created })
+            if (error) callback(500, { 'error': language.errormessages.user.created });
+            callback(200, { message: language.successmessages.user.created })
         })
     });
 }
@@ -68,17 +68,17 @@ handlers._users.post = (data, callback) => {
 handlers._users.get = (data, callback) => {
     //Check if the phone number is valid 
     const phone = validator.validatePhone(data.queryStringObject.phone);
-    if (!phone) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
+    if (!phone) callback(400, { 'error': language.errormessages.general.fieldsmissing });
 
     //Get the token from the headers and check if its a string with our validator service.
     const token = validator.isString(data.headers.token);
 
     //Verify the token from the headers i valid 
     tokenHandler._tokens.verifyToken(token, phone, (tokenIsValid) => {
-        if (!tokenIsValid) callback(403, { 'error': language.errorMessages.general.noAccess })
+        if (!tokenIsValid) callback(403, { 'error': language.errormessages.general.noaccess })
 
         _data.read('users', phone, (error, data) => {
-            if (error) callback(404, { 'error': language.errorMessages.user.notExist });
+            if (error) callback(404, { 'error': language.errormessages.user.notexist });
 
             //We removed the hashedPassword for security reason, and the user should not see it.
             delete data.hasedPassword;
@@ -90,25 +90,25 @@ handlers._users.get = (data, callback) => {
 //Create the methods 
 handlers._users.put = (data, callback) => {
     const phone = validations.validatePhone(data.payload.phone);
-    if (!phone) callback(400, { 'error': language.errorMessages.user.notExist })
+    if (!phone) callback(400, { 'error': language.errormessages.user.notexist })
 
     //Check for the option fields 
     const firstName = validator.notEmptyString(data.payload.firstName);
     const lastName  = validator.notEmptyString(data.payload.lastName);
     const password  = validator.notEmptyString(data.payload.password);
 
-    if (phone === false) callback(400, { 'error': language.errorMessages.user.phoneMissingField })
-    if (firstName === false && lastName === false && password === false) callback(400, { 'error': language.errorMessages.general.someFields })
+    if (phone === false) callback(400, { 'error': language.errormessages.user.missingphonenumber })
+    if (firstName === false && lastName === false && password === false) callback(400, { 'error': language.errormessages.general.somefields })
 
     _data.read('users', phone, (error, userData) => {
-        if (error) callback(400, { 'error': language.errorMessages.user.notExist });
+        if (error) callback(400, { 'error': language.errormessages.user.notexist });
 
         if (firstName) userData.firstName = firstName;
         if (lastName) userData.lastName = lastName;
         if (password) userData.hasedPassword = helpers.hash(password);
 
         _data.update('users', phone, userData, (error) => {
-            if (error) callback(500, { 'error': language.errorMessages.general.updateError });
+            if (error) callback(500, { 'error': language.errormessages.general.updateError });
             callback(200);
         })
     })
@@ -118,10 +118,10 @@ handlers._users.put = (data, callback) => {
 handlers._users.delete = (data, callback) => {
     //Check if the phone number is valid 
     const phone = validations.validatePhone(data.queryStringObject.phone);
-    if (!phone) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
+    if (!phone) callback(400, { 'error': language.errormessages.general.fieldsmissing });
 
     _data.delete('users', phone, (error, data) => {
-        if (error) callback(500, { 'error': language.errorMessages.user.deleteError });
+        if (error) callback(500, { 'error': language.errormessages.user.deleteerror });
         //Removed the hased password from the user object 
         callback(200);
     })

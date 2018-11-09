@@ -25,7 +25,7 @@ const httpsServer = https.createServer(httpsServerOptions, (req, res) => {
 
 //Start the https server
 httpsServer.listen(config.httpsPort, () => {
-    console.log(language.server.portMessage, config.httpPort, language.server.envMessage, config.envName);
+    console.log(language.server.portmessage, config.httpPort, language.server.envmessage, config.envName);
 })
 
 //Create the http server
@@ -35,5 +35,5 @@ const httpServer = http.createServer((req, res) => {
 
 //Starts the http server
 httpServer.listen(config.httpPort, () => {
-    console.log(language.server.portMessage, config.httpPort, language.server.envMessage, config.envName);
+    console.log(language.server.portmessage, config.httpPort, language.server.envmessage, config.envName);
 })

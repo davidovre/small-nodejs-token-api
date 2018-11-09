@@ -20,13 +20,13 @@ handlers._tokens.post = (data, callback) => {
     const phone     = validator.validatePhone(data.payload.phone);
     const password  = validator.notEmptyString(data.payload.password);
 
-    if (phone === false || password === false) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
+    if (phone === false || password === false) callback(400, { 'error': language.errormessages.general.fieldsmissing });
 
     //Lookup the user who match that phone number. 
     _data.read('users', phone, (error, userData) => {
-        if (error) callback(400, { 'error ': language.errorMessages.user.notExist });
+        if (error) callback(400, { 'error ': language.errormessages.user.notexist });
 
-        if (helpers.hash(data.payload.password) !== userData.hasedPassword) callback('400', { 'error': language.errorMessages.general.wrongCredentials });
+        if (helpers.hash(data.payload.password) !== userData.hasedPassword) callback('400', { 'error': language.errormessages.general.wrongcredentials });
 
         const tokenId = helpers.createRandomString(20);
         const expires = dates.futureDateTime(1000 * 60 * 60);
@@ -50,10 +50,10 @@ handlers._tokens.post = (data, callback) => {
 handlers._tokens.get = (data, callback) => {
     const id = validator.validateToken(data.queryStringObject.id);
 
-    if (!id) callback(400, { 'error': language.errorMessages.token.missingId });
+    if (!id) callback(400, { 'error': language.errormessages.token.missingid });
 
     _data.read('tokens', id, (error, tokenData) => {
-        if (error) callback(404, { 'error': language.errorMessages.tokenData });
+        if (error) callback(404, { 'error': language.errormessages.tokendata });
         callback(200, tokenData);
     })
 }
@@ -63,17 +63,17 @@ handlers._tokens.put = (data, callback) => {
     const id     = validator.validateToken(data.payload.id);
     const extend = validator.validateExtend(data.payload.extend);
 
-    if (!extend) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
+    if (!extend) callback(400, { 'error': language.errormessages.general.fieldsmissing });
 
     _data.read('tokens', id, (error, tokenData) => {
-        if (error) callback(400, { 'error': language.errorMessages.token.specyfied });
+        if (error) callback(400, { 'error': language.errormessages.token.specyfied });
 
-        if (tokenData.expires < dates.currentDate()) callback(400, { 'error ': language.errorMessages.token.isExpired })
+        if (tokenData.expires < dates.currentDate()) callback(400, { 'error ': language.errormessages.token.isexpired })
 
         tokenData.expires = dates.futureDateTime(1000 * 60 * 60);
 
         _data.update('tokens', id, tokenData, (error) => {
-            if (error) callback(500, { 'error': language.errorMessages.token.updateExpired })
+            if (error) callback(500, { 'error': language.errormessages.token.updateexpired })
 
             callback(200);
         })
@@ -84,10 +84,10 @@ handlers._tokens.put = (data, callback) => {
 handlers._tokens.delete = (data, callback) => {
     //Check if the phone number is valid 
     const id = validations.validateToken(data.queryStringObject.id);
-    if (!id) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
+    if (!id) callback(400, { 'error': language.errormessages.general.fieldsmissing });
 
     _data.delete('tokens', id, (error, data) => {
-        if (error) callback(500, { 'error': language.errorMessages.user.deleteError });
+        if (error) callback(500, { 'error': language.errormessages.user.deleteerror });
         //Removed the hased password from the user object 
         callback(200);
     })
