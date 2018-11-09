@@ -17,9 +17,9 @@ handlers._users.post = (data, callback) => {
     // Validate the required input fields with the validator service.
     const firstName     = validator.notEmptyString(data.payload.firstName);
     const lastName      = validator.notEmptyString(data.payload.lastName);
-    const phone         = validator.phoneRequired(data.payload.phone);
+    const phone         = validator.validatePhone(data.payload.phone);
     const password      = validator.notEmptyString(data.payload.password);
-    const tosAgreement  = validator.booleanRequired(data.payload.tosAgreement);
+    const tosAgreement  = validator.isBoolean(data.payload.tosAgreement);
 
     //Check if there are any missing fields and return a payload with missing fields
     if (firstName === false || lastName === false || phone === false || password === false || tosAgreement === false) {
@@ -67,7 +67,7 @@ handlers._users.post = (data, callback) => {
 //@TODO only auth users to access thier own objects 
 handlers._users.get = (data, callback) => {
     //Check if the phone number is valid 
-    const phone = validator.phoneRequired(data.queryStringObject.phone);
+    const phone = validator.validatePhone(data.queryStringObject.phone);
     if (!phone) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
 
     //Get the token from the headers and check if its a string with our validator service.
@@ -89,7 +89,7 @@ handlers._users.get = (data, callback) => {
 
 //Create the methods 
 handlers._users.put = (data, callback) => {
-    const phone = validations.phoneRequired(data.payload.phone);
+    const phone = validations.validatePhone(data.payload.phone);
     if (!phone) callback(400, { 'error': language.errorMessages.user.notExist })
 
     //Check for the option fields 
@@ -117,7 +117,7 @@ handlers._users.put = (data, callback) => {
 //Create the methods 
 handlers._users.delete = (data, callback) => {
     //Check if the phone number is valid 
-    const phone = validations.phoneRequired(data.queryStringObject.phone);
+    const phone = validations.validatePhone(data.queryStringObject.phone);
     if (!phone) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
 
     _data.delete('users', phone, (error, data) => {

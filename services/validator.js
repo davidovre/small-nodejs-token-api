@@ -11,11 +11,11 @@ validator.notEmptyString = (string) => {
     return typeof (string) == 'string' && string.trim().length > 0 ? string.trim() : false;
 }
 
-validator.phoneRequired = (number) => {
+validator.validatePhone = (number) => {
     return typeof (number) == 'string' && number.trim().length == 8 ? number.trim() : false;
 }
 
-validator.booleanRequired = (boolean) => {
+validator.isBoolean = (boolean) => {
     return typeof (boolean) == 'boolean' && boolean == true ? true : false;
 }
 

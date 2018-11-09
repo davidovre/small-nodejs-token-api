@@ -17,7 +17,7 @@ handlers._tokens = {}
 
 //Token - post
 handlers._tokens.post = (data, callback) => {
-    const phone     = validator.phoneRequired(data.payload.phone);
+    const phone     = validator.validatePhone(data.payload.phone);
     const password  = validator.notEmptyString(data.payload.password);
 
     if (phone === false || password === false) callback(400, { 'error': language.errorMessages.general.fieldsMissing });
