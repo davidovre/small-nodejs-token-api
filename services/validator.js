@@ -7,16 +7,24 @@
 
 const validator = {};
 
+validator.requiredInput = (data, field) => {
+    return data !== false ? data : field + ' is required';
+}
+
 validator.notEmptyString = (string) => {
     return typeof (string) == 'string' && string.trim().length > 0 ? string.trim() : false;
 }
 
-validator.validatePhone = (number) => {
-    return typeof (number) == 'string' && number.trim().length == 8 ? number.trim() : false;
+validator.isString = (string) => {
+    return typeof (string) == 'string' ? string : false
 }
 
 validator.isBoolean = (boolean) => {
     return typeof (boolean) == 'boolean' && boolean == true ? true : false;
+}
+
+validator.validatePhone = (number) => {
+    return typeof (number) == 'string' && number.trim().length == 8 ? number.trim() : false;
 }
 
 validator.validateToken = (token) => {
@@ -26,13 +34,4 @@ validator.validateToken = (token) => {
 validator.validateExtend = (extend) => {
     return typeof (extend) == 'boolean' && extend == true ? true : false;
 }
-
-validator.requiredInput = (data, field) => {
-    return data !== false ? data : field + ' is required';
-}
-
-validator.isString = (string) => {
-    return typeof(string) == 'string' ? string : false
-}
-
 module.exports = validator;
