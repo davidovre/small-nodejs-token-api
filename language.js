@@ -5,7 +5,7 @@ const language = {
     "errormessages": {
         "general": {
             "fieldsmissing": "Missing one or more required field(s)",
-            "noAccess": "You do not have access to this resource",
+            "noaccess": "You do not have access to this resource",
             "somefields": "You need to send in one or more fields",
             "updateError": "Something went wrong while updating the record, please try again",
             "wrongcredentials": "Wrong username or password, please try again"

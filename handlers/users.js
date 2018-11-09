@@ -64,7 +64,6 @@ handlers._users.post = (data, callback) => {
 }
 
 //Create the methods 
-//@TODO only auth users to access thier own objects 
 handlers._users.get = (data, callback) => {
     //Check if the phone number is valid 
     const phone = validator.validatePhone(data.queryStringObject.phone);

@@ -1,5 +1,6 @@
 /*
-*  This file holds the server logic
+*  This file contains the server logic for this application. 
+*  You should be carefully while editing this file.
 */
 
 //Imports the required dependencies.
