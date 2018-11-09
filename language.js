@@ -24,6 +24,10 @@ const language = {
             "specyfied": "The specyfied token does not exist",
             "isexpired": "The token is already expired",
             "updateexpired": "There was a problem with updating the expire date"
+        }, 
+        "sms": {
+            "phonemessage": "Phonenumber and a message is required",
+            "statusreturned": "Status code returned was:"
         }
     },
     "successmessages": {

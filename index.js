@@ -3,11 +3,11 @@
 */
 
 //Imports required dependencies 
-const http = require('http');
-const https = require('https');
-const config = require('./config');
-const fs = require('fs');
-const language = require('./language');
+const http = require('http')
+const https = require('https')
+const config = require('./config')
+const fs = require('fs')
+const language = require('./language')
 
 //Required the unifiedServer to handle the server logic.
 const unifiedServer = require('./server');

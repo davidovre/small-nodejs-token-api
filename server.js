@@ -4,11 +4,11 @@
 */
 
 //Imports the required dependencies.
-const router = require('./routes/router');
-const defaultHandler = require('./handlers/default');
-const url = require('url');
-const StringDecoder = require('string_decoder').StringDecoder;
-const helpers = require('./services/helper');
+const router = require('./routes/router')
+const defaultHandler = require('./handlers/default')
+const url = require('url')
+const StringDecoder = require('string_decoder').StringDecoder
+const helpers = require('./services/helper')
 
 //This UnifiedServer function handles the server logic.
 const unifiedServer = (req, res) => {

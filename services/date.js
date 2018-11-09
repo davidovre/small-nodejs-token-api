@@ -5,6 +5,6 @@
 const dates = {};
 
 dates.currentDate = () =>  Date.now();
-dates.futureDateTime = (timer) => Date.now + timer
+dates.futureDateTime = (timer) => Date.now() + timer
 
 module.exports = dates;

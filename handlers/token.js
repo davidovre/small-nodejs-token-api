@@ -1,13 +1,13 @@
-const helpers   = require('../services/helper');
-const language  = require('../language');
-const validator = require('../services/validator');
-const dates     = require('../services/date');
-const _data     = require('../services/crud');
+const helpers   = require('../services/helper')
+const language  = require('../language')
+const validator = require('../services/validator')
+const dates     = require('../services/date')
+const _data     = require('../services/crud')
 
 const handlers = {};
 
 handlers.tokens = (data, callback) => {
-    const accaptableMethods = helpers.acceptAllMethods;
+    const accaptableMethods = ['post', 'get', 'put', 'delete'];
     if (accaptableMethods.indexOf(data.method) === -1) callback(405);
     handlers._tokens[data.method](data, callback);
 }
