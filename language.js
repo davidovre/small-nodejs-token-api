@@ -7,20 +7,20 @@ const language = {
             "fieldsMissing": "Missing one or more required field(s)",
             "noAccess": "You do not have access to this resource",
             "someFields": "You need to send in one or more fields",
-            "updateError": "Something went wrong while update the record, please try again",
+            "updateError": "Something went wrong while updating the record, please try again",
             "wrongCredentials": "Wrong username or password, please try again"
         },
         "user": {
             "userexist": "A user with the current phonenumber already exists",
-            "created": "There was a problem with creating the user, try again later.",
-            "hashpassword": "Something went wrong while hasing the password",
+            "created": "There was a problem with creating the user, please try again",
+            "hashpassword": "Something went wrong while hasing the password, please try again",
             "notExist": "The user does not exist",
-            "phoneMissingField": "Please specify your phonenumber",
-            "deleteError": "Something went wrong while deleting the user, please try again"
+            "phoneMissingField": "Please specify phonenumber",
+            "deleteError": "Can not delete user, please try again"
         },
         "token": {
             "missingId": "Missing the required ID",
-            "tokenData": "Cannot find any token data",
+            "tokenData": "Can not find any token data",
             "specyfied": "The specyfied token does not exist",
             "isExpired": "The token is already expired",
             "updateExpired": "There was a problem with updating the expire date"
@@ -28,7 +28,7 @@ const language = {
     },
     "successMessages": {
         "user": {
-            "created": "The user has been created successfuly"
+            "created": "The user has been created successfully"
         }
     },
     "server": {
