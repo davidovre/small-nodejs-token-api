@@ -1,12 +1,11 @@
-// This is an helper for diffirents tasks 
-
+/*
+* This is a helper file that contains helpers for different tasks.
+*/
 const crypto = require('crypto');
 const config = require('../config');
 
-//Contianr 
 const helpers = {};
 
-//create a hash method
 helpers.hash = (string) => {
     if(typeof(string) !== 'string' && string.length < 1) return false;
     return crypto.createHmac('sha256', config.hashingSecret).update(string).digest('hex');

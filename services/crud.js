@@ -1,28 +1,28 @@
 /*
-* Libary for stroing and editing data
+*    CRUD service is created to write, read, update, and deleting from the disc.
 */
 
-//Dependecies 
+// Necessary dependecies
 const fs = require('fs');
 const path = require('path');
 const helpers = require('../services/helper');
 
 //Container for this modules 
-const lib = {};
+const crud = {};
 
 //Define the base directory
-lib.baseDir = path.join(__dirname, '/../.data/');
+crud.baseDir = path.join(__dirname, '/../.data/');
 
-//Write data to a file 
-lib.create = (dir, file, data, callback) => {
-    //Open the file for writing
-    fs.open(lib.baseDir + dir + '/' + file + '.json', 'wx', (error, fileDescriptor) => {
+//Write data to file
+crud.create = (dir, file, data, callback) => {
+
+    // Creating the file - for store data to it.
+    fs.open(crud.baseDir + dir + '/' + file + '.json', 'wx', (error, fileDescriptor) => {
         if (error) callback('Could not create new file, it may already exist');
 
-        //Convert data to string 
         const stringData = JSON.stringify(data);
 
-        //Write to file and then close it
+        // Write data to the new file.
         fs.writeFile(fileDescriptor, stringData, (error) => {
             if (error) callback('Error writing to new file');
 
@@ -35,26 +35,26 @@ lib.create = (dir, file, data, callback) => {
     });
 }
 
-lib.read = (dir, file, callback) => {
-    fs.readFile(lib.baseDir + dir + '/' + file + '.json', 'utf-8', (error, data) => {
+crud.read = (dir, file, callback) => {
+    fs.readFile(crud.baseDir + dir + '/' + file + '.json', 'utf-8', (error, data) => {
         if (error) callback(500, { 'Error': data })
         callback(false, helpers.parseJsonToObject(data));
     })
 }
 
-lib.update = (dir, file, data, callback) => {
-    //Open the file for writing 
-    fs.open(lib.baseDir + dir + '/' + file + '.json', 'r+', (error, fileDescriptor) => {
+crud.update = (dir, file, data, callback) => {
+
+    //Open the selected file for writing.
+    fs.open(crud.baseDir + dir + '/' + file + '.json', 'r+', (error, fileDescriptor) => {
         if (error) callback('Could not open the file for update - it may not exist yet');
 
         const stringData = JSON.stringify(data);
         
-        //Truncate the file
+        // Truncate the file
         fs.truncate(fileDescriptor, (error) => {
             if (error) callback('Erroring while truncate the file')
 
-            //write to the file and close it
-
+            // Write data to the selected file
             fs.writeFile(fileDescriptor, stringData, (error) => {
                 if (error) callback('Error writing to exsiting file');
 
@@ -69,13 +69,13 @@ lib.update = (dir, file, data, callback) => {
 }
 
 //Delete the file
-lib.delete = (dir, file, callback) => {
+crud.delete = (dir, file, callback) => {
     //Unlik 
-    fs.unlink(lib.baseDir + dir + '/' + file + '.json', (error) => {
+    fs.unlink(crud.baseDir + dir + '/' + file + '.json', (error) => {
         if (error) callback('Error to delete the file');
 
         callback(false);
     })
 }
 
-module.exports = lib;
+module.exports = crud;

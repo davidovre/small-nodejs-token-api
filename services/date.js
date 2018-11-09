@@ -1,5 +1,5 @@
 /*
-*  This service is created to handle date logic.
+*  DateService is created to handle date logic
 */
 
 const dates = {};
